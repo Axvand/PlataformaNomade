@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teste de Metadados MP3</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        margin: 0;
+        padding: 20px;
+      }
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #181818;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      .file-input {
+        margin-bottom: 20px;
+        background-color: #282828;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+      }
+      input[type="file"] {
+        display: none;
+      }
+      .file-btn {
+        background-color: #1db954;
+        color: black;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: bold;
+        display: inline-block;
+      }
+      .file-btn:hover {
+        background-color: #1ed760;
+      }
+      .results {
+        background-color: #282828;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+      .metadata-item {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #333;
+      }
+      .metadata-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+      }
+      .item-label {
+        font-weight: bold;
+        color: #1db954;
+        margin-bottom: 5px;
+      }
+      img.album-art {
+        max-width: 200px;
+        max-height: 200px;
+        display: block;
+        margin: 10px auto;
+        border-radius: 5px;
+      }
+      .back-btn {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+        color: #b3b3b3;
+        text-decoration: none;
+      }
+      .back-btn:hover {
+        color: white;
+      }
+      .error {
+        color: #ff5555;
+        padding: 10px;
+        background: rgba(255, 0, 0, 0.1);
+        border-radius: 5px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Teste de Metadados MP3</h1>
+
+      <div class="file-input">
+        <label for="fileInput" class="file-btn">Selecionar arquivo MP3</label>
+        <input type="file" id="fileInput" accept="audio/*" />
+        <p id="fileName"></p>
+      </div>
+
+      <div id="results" class="results" style="display: none">
+        <h2>Metadados Extraídos:</h2>
+        <div id="metadataResults"></div>
+      </div>
+
+      <a href="index.html" class="back-btn">Voltar para o Player de Música</a>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.getElementById("fileInput");
+        const fileName = document.getElementById("fileName");
+        const results = document.getElementById("results");
+        const metadataResults = document.getElementById("metadataResults");
+
+        fileInput.addEventListener("change", function (e) {
+          const file = e.target.files[0];
+          if (!file) return;
+
+          fileName.textContent = `Arquivo selecionado: ${file.name}`;
+
+          // Limpar resultados anteriores
+          metadataResults.innerHTML = "";
+
+          // Mostrar mensagem de carregamento
+          metadataResults.innerHTML = "<p>Carregando metadados...</p>";
+          results.style.display = "block";
+
+          // Usar jsmediatags para ler os metadados
+          jsmediatags.read(file, {
+            onSuccess: function (tag) {
+              const tags = tag.tags;
+              console.log("Tags extraídas:", tags);
+
+              metadataResults.innerHTML = "";
+
+              // Título
+              addMetadataItem("Título", tags.title || "Não disponível");
+
+              // Artista
+              addMetadataItem("Artista", tags.artist || "Não disponível");
+
+              // Álbum
+              addMetadataItem("Álbum", tags.album || "Não disponível");
+
+              // Ano
+              addMetadataItem("Ano", tags.year || "Não disponível");
+
+              // Gênero
+              addMetadataItem("Gênero", tags.genre || "Não disponível");
+
+              // Número da faixa
+              addMetadataItem(
+                "Número da Faixa",
+                tags.track || "Não disponível"
+              );
+
+              // Comentários
+              if (tags.comment) {
+                addMetadataItem(
+                  "Comentários",
+                  tags.comment.text || "Não disponível"
+                );
+              } else {
+                addMetadataItem("Comentários", "Não disponível");
+              }
+
+              // Capa do álbum
+              if (tags.picture) {
+                const { data, format } = tags.picture;
+                let base64String = "";
+                for (let i = 0; i < data.length; i++) {
+                  base64String += String.fromCharCode(data[i]);
+                }
+                const albumArtUrl = `data:${format};base64,${window.btoa(
+                  base64String
+                )}`;
+
+                const albumArtItem = document.createElement("div");
+                albumArtItem.className = "metadata-item";
+
+                const label = document.createElement("div");
+                label.className = "item-label";
+                label.textContent = "Capa do Álbum";
+
+                const img = document.createElement("img");
+                img.className = "album-art";
+                img.src = albumArtUrl;
+                img.alt = "Capa do Álbum";
+
+                albumArtItem.appendChild(label);
+                albumArtItem.appendChild(img);
+                metadataResults.appendChild(albumArtItem);
+              } else {
+                addMetadataItem("Capa do Álbum", "Não disponível");
+              }
+
+              // Duração do áudio
+              const audioEl = new Audio();
+              audioEl.addEventListener("loadedmetadata", () => {
+                const duration = formatTime(audioEl.duration);
+                addMetadataItem("Duração", duration);
+              });
+
+              audioEl.addEventListener("error", () => {
+                addMetadataItem("Duração", "Não disponível");
+              });
+
+              audioEl.src = URL.createObjectURL(file);
+            },
+            onError: function (error) {
+              console.error("Erro ao ler metadados:", error);
+              metadataResults.innerHTML = `
+                            <div class="error">
+                                <p>Erro ao ler metadados: ${
+                                  error.message || "Erro desconhecido"
+                                }</p>
+                                <p>Este arquivo pode não conter metadados no formato ID3 ou pode estar corrompido.</p>
+                            </div>
+                        `;
+            },
+          });
+        });
+
+        // Função para adicionar um item de metadados à interface
+        function addMetadataItem(label, value) {
+          const item = document.createElement("div");
+          item.className = "metadata-item";
+
+          const labelEl = document.createElement("div");
+          labelEl.className = "item-label";
+          labelEl.textContent = label;
+
+          const valueEl = document.createElement("div");
+          valueEl.textContent = value;
+
+          item.appendChild(labelEl);
+          item.appendChild(valueEl);
+          metadataResults.appendChild(item);
+        }
+
+        // Converter segundos para formato MM:SS
+        function formatTime(seconds) {
+          const mins = Math.floor(seconds / 60);
+          const secs = Math.floor(seconds % 60);
+          return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
+        }
+      });
+    </script>
+  </body>
+</html>

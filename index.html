@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MusicaNomade</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Cabeçalho -->
+      <header class="app-header">
+        <h1 class="app-title">
+          Sonho De Raça - <span class="highlight">Nômade</span>
+        </h1>
+        <p class="app-subtitle">Somos reis e rainhas!</p>
+      </header>
+
+      <!-- Player Principal -->
+      <div class="player-container">
+        <div class="album-cover">
+          <img
+            id="current-album-art"
+            src="assets/Capa.png"
+            alt="Capa do Álbum"
+          />
+        </div>
+        <div class="player-info">
+          <h2 id="current-track-name">Selecione uma música</h2>
+          <p id="current-artist">Artista</p>
+        </div>
+        <div class="player-controls">
+          <div class="progress-container">
+            <div class="progress-bar" id="progress-bar">
+              <div class="progress" id="progress"></div>
+            </div>
+            <div class="time-info">
+              <span id="current-time">0:00</span>
+              <span id="total-time">0:00</span>
+            </div>
+          </div>
+          <div class="control-buttons">
+            <button id="prev-btn"><i class="fas fa-step-backward"></i></button>
+            <button id="play-btn"><i class="fas fa-play"></i></button>
+            <button id="next-btn"><i class="fas fa-step-forward"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lista de Músicas -->
+      <div class="track-list-container">
+        <h2>
+          <i class="fas fa-music gold-icon"></i> Músicas da Pasta "Musicas"
+        </h2>
+        <ul id="track-list" class="track-list">
+          <!-- As faixas serão adicionadas dinamicamente aqui -->
+        </ul>
+      </div>
+
+      <!-- Download do Álbum -->
+      <div class="download-container">
+        <button id="download-album" class="download-btn">
+          <i class="fas fa-download"></i> Baixar Todas as Músicas
+        </button>
+      </div>
+
+      <!-- Rodapé -->
+      <footer class="app-footer">
+        <p>Plataforma Nômade &copy; 2023</p>
+      </footer>
+    </div>
+
+    <!-- Player de Áudio (invisível) -->
+    <audio id="audio-player"></audio>
+
+    <script src="script.js"></script>
+  </body>
+</html>
