@@ -241,10 +241,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Adicionar botão na interface
-    const addButton = document.createElement("button");
-    addButton.className = "add-music-btn";
-    addButton.innerHTML = '<i class="fas fa-plus"></i> Adicionar Músicas';
-    addButton.onclick = () => fileSelector.click();
 
     const trackListContainer = document.querySelector(".track-list-container");
     trackListContainer.insertBefore(addButton, trackList);

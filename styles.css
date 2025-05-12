@@ -8,7 +8,8 @@
 body {
   background-color: #f2b705;
   color: #0d0d0d;
-  background-image: linear-gradient(to bottom, #f2b705, #f2a007);
+  background-image: url(assets/Capa.png);
+  background-size: cover;
   min-height: 100vh;
 }
 
@@ -59,7 +60,7 @@ body {
 
 /* Player principal */
 .player-container {
-  background-color: #222;
+  background-color: #000000;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
@@ -176,7 +177,7 @@ body {
 
 /* Lista de músicas */
 .track-list-container {
-  background-color: #222;
+  background-color: #000000;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
@@ -295,9 +296,9 @@ body {
 }
 
 .download-btn {
-  background-color: #592b02;
+  background-color: #f2b705;
   border: none;
-  color: white;
+  color: rgb(0, 0, 0);
   padding: 12px 25px;
   font-size: 1rem;
   border-radius: 30px;
@@ -319,7 +320,7 @@ body {
   text-align: center;
   padding-top: 15px;
   border-top: 2px solid #592b02;
-  color: #592b02;
+  color: #ffffff;
   font-size: 0.9rem;
   margin-top: 10px;
   font-weight: bold;
