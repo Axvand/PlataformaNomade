@@ -31,23 +31,43 @@ document.addEventListener("DOMContentLoaded", () => {
       "4 -Letra G, Justica.mp3",
       "5-Velejar.mp3",
       "6-Ego.mp3",
+      "7-Vai se f#der.mp3",
     ];
 
     // Estrutura de dados para as músicas
     tracks = musicasFiles.map((filename) => {
       // Extrair o nome da música do nome do arquivo
       const title = filename.replace(".mp3", "");
+      const filePath = `Musicas/${encodeURIComponent(filename)}`;
+      console.log("Carregando arquivo:", filePath);
 
       return {
         title: title,
         artist: "Sonho de Raça", // Nome do artista
         album: "Nômade", // Nome do álbum
         duration: "0:00", // Será atualizado quando o arquivo for carregado
-        file: `Musicas/${filename}`,
+        file: filePath,
         albumArt: defaultAlbumArt,
         format: "MP3",
         fileName: filename,
       };
+    });
+
+    // Adicionar listener de erro no player
+    audioPlayer.addEventListener("error", (e) => {
+      console.error("Erro ao carregar áudio:", e);
+      console.log("Arquivo atual:", audioPlayer.src);
+      console.log("Código do erro:", audioPlayer.error.code);
+      console.log("Mensagem do erro:", audioPlayer.error.message);
+    });
+
+    // Adicionar listener para debug quando uma faixa é selecionada
+    audioPlayer.addEventListener("loadstart", () => {
+      console.log("Iniciando carregamento do arquivo:", audioPlayer.src);
+    });
+
+    audioPlayer.addEventListener("canplay", () => {
+      console.log("Arquivo pronto para tocar:", audioPlayer.src);
     });
 
     // Renderizar a lista de faixas
