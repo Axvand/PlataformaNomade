@@ -445,16 +445,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Para músicas da pasta Musicas
-    // tracks.forEach((track) => {
-    //   if (track.fileName) {
-    //     const a = document.createElement("a");
-    //     a.href = track.file;
-    //     a.download = track.fileName;
-    //     document.body.appendChild(a);
-    //     a.click();
-    //     document.body.removeChild(a);
-    //   }
-    // });
+    tracks.forEach((track) => {
+      if (track.fileName) {
+        const a = document.createElement("a");
+        a.href = track.file;
+        a.download = track.fileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    });
   }
 
   // Adicionar estilo para highlight durante drag&drop
