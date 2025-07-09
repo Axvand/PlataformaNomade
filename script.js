@@ -26,12 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
   function loadMusicasFolder() {
     // Array com os nomes dos arquivos da pasta "Musicas"
     const musicasFiles = [
-      "2-Hey Maria.mp3",
-      "3-Golpe.mp3",
-      "4 -Letra G, Justica.mp3",
-      "5-Velejar.mp3",
-      "6-Ego.mp3",
-      "7-Vai se f#der.mp3",
+      "1-Hey Maria.mp3",
+      "2-Golpe.mp3",
+      "3 -Letra G, Justica.mp3",
+      "4-Velejar.mp3",
+      "5-Ego.mp3",
+      "6-Vai se f#der.mp3",
     ];
 
     // Estrutura de dados para as músicas
