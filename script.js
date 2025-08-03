@@ -32,6 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "4-Velejar.mp3",
       "5-Ego.mp3",
       "6-Vai se f#der.mp3",
+      "7-Avise",
     ];
 
     // Estrutura de dados para as músicas
@@ -43,8 +44,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return {
         title: title,
-        artist: "Sonho de Raça", // Nome do artista
-        album: "Nômade", // Nome do álbum
+        artist: "Nômade", // Nome do artista
+        album: "Sonho de Raça", // Nome do álbum
         duration: "0:00", // Será atualizado quando o arquivo for carregado
         file: filePath,
         albumArt: defaultAlbumArt,
