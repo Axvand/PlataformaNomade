@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "4-Velejar.mp3",
       "5-Ego.mp3",
       "6-Vai se f#der.mp3",
-      "7-Avise",
+      "7-Avise.mp3",
     ];
 
     // Estrutura de dados para as músicas
